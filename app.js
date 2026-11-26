@@ -1,5 +1,5 @@
 const CATALOG = 'https://assets.ultracord.dev/plugins/index.json';
-const NAME = /^ultra-[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ACCESS = {
   network: 'Internet',
   'discord-api': 'Discord API',
@@ -106,7 +106,7 @@ function element(tag, props = {}, ...children) {
 }
 
 function isListing(p) {
-  return p && typeof p === 'object' && NAME.test(p.name) &&
+  return p && typeof p === 'object' && NAME.test(p.name) && p.name !== 'ultracord' &&
     ['description', 'version', 'author'].every((key) => typeof p[key] === 'string') &&
     Array.isArray(p.access) && Array.isArray(p.domains);
 }
