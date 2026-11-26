@@ -377,6 +377,15 @@ main {
   }
 }
 
+/* Leans with the italic label. */
+.button-icon {
+  flex: none;
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  margin-inline-end: 0.5rem;
+  transform: skewX(-10deg);
+}
+
 /* The outline is a full shape with a smaller one on top, so the slanted sides keep it too. */
 .button-ghost {
   &::before,
