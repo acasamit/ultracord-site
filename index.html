@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Ultracord: community plugins for Sunbird</title>
+  <meta name="description" content="A community store of reviewed plugins and themes for Sunbird, the Discord Phoenix unlocker.">
+  <meta property="og:title" content="Ultracord">
+  <meta property="og:description" content="Community plugins and themes for Sunbird, reviewed before they ship.">
+  <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
+  <meta property="og:url" content="https://ultracord.dev/">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link visually-hidden" href="#main-title">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="./">
+        <img src="favicon.svg" width="40" height="40" alt="">
+        <span class="wordmark">Ultra<span>cord</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span>Menu</span>
+        </button>
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="#plugins">Plugins</a></li>
+          <li><a href="#themes">Themes</a></li>
+          <li><a href="#install">Install</a></li>
+          <li><a href="#contribute">Contribute</a></li>
+          <li><a href="https://github.com/acasamit/ultracord">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="main-title">
+      <img class="hero-mark" src="assets/ultracord-logo-on-dark.svg" width="700" height="440" alt="" fetchpriority="high">
+      <div class="hero-text">
+        <h1 id="main-title" tabindex="-1">More plugins for Sunbird</h1>
+        <p class="lead">Ultracord is a community store of plugins and themes for Sunbird, the Discord Phoenix unlocker. Every plugin is read line by line before it ships.</p>
+        <p class="actions">
+          <a class="button" href="#install">Install Ultracord</a>
+          <a class="button button-ghost" href="#plugins">Browse plugins</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="plugins" class="section" aria-labelledby="plugins-title">
+      <h2 id="plugins-title">Plugins</h2>
+      <p>Each plugin lists what it can reach before you install it: the network, the Discord API with your session, your local message cache. Nothing is hidden in a minified file.</p>
+      <div class="search">
+        <label for="plugin-search">Search plugins</label>
+        <input id="plugin-search" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <p id="catalog-status" class="status" role="status">Loading the catalog…</p>
+      <ul id="catalog" class="cards"></ul>
+    </section>
+
+    <section id="themes" class="section" aria-labelledby="themes-title">
+      <h2 id="themes-title">Themes</h2>
+      <p>Phoenix draws Discord natively, without CSS, so themes need support from Sunbird itself. That work is in progress upstream. Theme submissions open as soon as it lands, and existing mobile themes should carry over.</p>
+    </section>
+
+    <section id="install" class="section" aria-labelledby="install-title">
+      <h2 id="install-title">Install</h2>
+      <ol class="steps">
+        <li>
+          <h3>Patch Discord with Sunbird</h3>
+          <p>Open <a href="https://sunbird.tools/">sunbird.tools</a> on your phone and keep the plugin runtime turned on. Desktop Phoenix works too.</p>
+        </li>
+        <li>
+          <h3>Add Ultracord</h3>
+          <p>In Discord, go to Settings, Phoenix, Install from URL, and paste this link:</p>
+          <div class="copy-row">
+            <code id="store-url">https://assets.ultracord.dev/plugins/ultracord.js</code>
+            <span class="copy">
+              <button class="copy-button" type="button" command="--copy" commandfor="store-url">Copy link<span class="visually-hidden"> to the Ultracord plugin</span></button>
+              <span class="tip" role="status"></span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <h3>Pick your plugins</h3>
+          <p>Open Ultracord from the button in the chat header. It shows every plugin, what it can access, and tells you when an update is out.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="contribute" class="section" aria-labelledby="contribute-title">
+      <h2 id="contribute-title">Contribute</h2>
+      <p>Plugins are TypeScript files submitted as pull requests on GitHub. A submission is refused if it:</p>
+      <ul class="rules">
+        <li>loads or runs code it does not ship with;</li>
+        <li>sends your data anywhere its description does not mention;</li>
+        <li>acts on your account without you asking;</li>
+        <li>is obfuscated or minified.</li>
+      </ul>
+      <p class="actions">
+        <a class="button" href="https://github.com/acasamit/ultracord/blob/main/CONTRIBUTING.md">Write a plugin</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Ultracord is not affiliated with Discord or the Sunbird project.</p>
+    <p><a href="https://github.com/acasamit/ultracord">Source on GitHub</a> · <a href="https://github.com/acasamit/ultracord/blob/main/LICENSE">GPL-3.0</a></p>
+  </footer>
+</body>
+</html>
