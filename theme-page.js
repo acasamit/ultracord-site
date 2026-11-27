@@ -3,9 +3,13 @@
 import './site.js';
 import { COLORS, credit, downloadCounts, downloadLink, downloads, element, fetchThemes, palette, sketch } from './theme-kit.js';
 
-// Comments and reactions live in the store repository's GitHub Discussions, through giscus. The
-// ids come from giscus.app once Discussions and the giscus app are on for acasamit/ultracord.
-const GISCUS = null;
+// Comments and reactions live in the store repository's GitHub Discussions, through giscus, in
+// the "Theme comments" category (Announcement format: only giscus and maintainers open threads).
+const GISCUS = {
+  repoId: 'R_kgDOV83rOg',
+  category: 'Theme comments',
+  categoryId: 'DIC_kwDOV83rOs4DMGoM',
+};
 
 const status = document.getElementById('theme-status');
 const page = document.getElementById('theme');

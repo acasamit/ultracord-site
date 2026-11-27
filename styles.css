@@ -1418,7 +1418,7 @@ button.button {
   border: 1px solid var(--line-strong);
 }
 
-/* giscus draws its own frame; its script's inline style is not allowed here, so it is sized here. */
+/* The giscus frame, sized here as well as by giscus.app/default.css. */
 .giscus {
   min-block-size: 10rem;
 }
