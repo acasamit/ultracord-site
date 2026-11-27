@@ -30,6 +30,11 @@ function layoutNav() {
 const navObserver = new ResizeObserver(layoutNav);
 navObserver.observe(header);
 navObserver.observe(menu);
+// The wordmark's font can arrive after the first measure, which a fallback font may have widened.
+document.fonts.ready.then(() => {
+  lastWidth = 0;
+  layoutNav();
+});
 
 menu.addEventListener('click', (event) => {
   if (event.target.closest('a') && menu.matches(':popover-open')) menu.hidePopover();
