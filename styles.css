@@ -353,9 +353,11 @@ main {
   padding: 0.625rem 1.5rem;
   color: var(--bone);
   font-family: var(--display);
+  /* Anton at its own size: the body's x-height match would shrink it by about 15%. */
+  font-size-adjust: cap-height from-font;
   font-size: 1.25rem;
   font-style: italic;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-decoration: none;
   text-transform: uppercase;
 
