@@ -170,6 +170,8 @@ export function downloadLink(t, className = 'button button-small button-ghost') 
   const release = typeof t.download === 'string' && t.download.startsWith(RELEASE) ? t.download : null;
   const link = element('a', { className, href: release ?? t.url },
     'Download', element('span', { className: 'visually-hidden', textContent: ` ${t.title}` }));
+  // Stays in this tab, where site.js opens other sites in a new one.
+  link.dataset.download = '';
   if (release) return link;
   link.addEventListener('click', async (event) => {
     event.preventDefault();
@@ -257,15 +259,27 @@ export async function themeStats() {
 
 export const countText = (n, key) => `${n.toLocaleString('en')} ${NOUNS[key]}${n === 1 ? '' : 's'}`;
 
-function icon(key) {
+/** A decorative icon from one path. Stroked by default, filled with `fill`. */
+export function svgIcon(d, { viewBox = '0 0 24 24', fill = false, className = '' } = {}) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('viewBox', viewBox);
   svg.setAttribute('aria-hidden', 'true');
+  if (className) svg.setAttribute('class', className);
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  path.setAttribute('d', ICONS[key]);
+  path.setAttribute('d', d);
+  if (fill) {
+    path.setAttribute('fill', 'currentColor');
+  } else {
+    for (const [name, value] of [['fill', 'none'], ['stroke', 'currentColor'], ['stroke-width', '2'], ['stroke-linecap', 'round'], ['stroke-linejoin', 'round']]) {
+      path.setAttribute(name, value);
+    }
+  }
   svg.append(path);
   return svg;
 }
+
+export const STAT_ICONS = ICONS;
+const icon = (key) => svgIcon(ICONS[key]);
 
 /** The counts a theme has, zeros included, with an icon each. `labels` spells them out. */
 export function statsRow(stats, labels = false) {

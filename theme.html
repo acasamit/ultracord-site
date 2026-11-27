@@ -55,40 +55,56 @@
     <p id="theme-status" class="status" role="status">Loading the theme…</p>
 
     <article id="theme" class="theme-page" hidden>
-      <div id="theme-preview" class="theme-preview"></div>
-      <div class="theme-info">
-        <h1 id="main-title" tabindex="-1">Theme</h1>
-        <p id="theme-description" class="lead"></p>
-        <ul id="theme-meta" class="meta"></ul>
-        <p id="theme-actions" class="actions"></p>
-        <h2 class="palette-title">Palette</h2>
-        <dl id="theme-palette" class="palette"></dl>
+      <header class="theme-head">
+        <div class="theme-title">
+          <h1 id="main-title" tabindex="-1">Theme</h1>
+          <ul id="theme-meta" class="theme-meta"></ul>
+          <p id="theme-description" class="lead"></p>
+        </div>
+        <a id="theme-rating" class="rating-badge" href="#comments" hidden></a>
+      </header>
+
+      <div class="theme-layout">
+        <div id="theme-preview" class="theme-preview"></div>
+
+        <aside class="theme-side" aria-label="Actions and details">
+          <section class="side-card" aria-labelledby="actions-title">
+            <h2 id="actions-title">Actions</h2>
+            <div id="theme-actions" class="side-actions"></div>
+          </section>
+          <section class="side-card" aria-labelledby="about-title">
+            <h2 id="about-title">About</h2>
+            <dl id="theme-about" class="about"></dl>
+          </section>
+        </aside>
+
+        <div class="theme-rest">
+          <section class="theme-block" aria-labelledby="use-title">
+            <h2 id="use-title">Use it</h2>
+            <ol class="steps">
+              <li>
+                <h3>Patch Discord Phoenix with Sunbird</h3>
+                <p>Install it from <a href="https://sunbird.tools/">sunbird.tools</a> on Discord Phoenix for Windows. Themes come with Sunbird's desktop-themes plugin: if it is not in Sunbird's settings yet, it arrives with the next Sunbird update.</p>
+              </li>
+              <li>
+                <h3>Download it</h3>
+                <p>Press Download. You get a small <code>.theme.css</code> file.</p>
+              </li>
+              <li>
+                <h3>Apply it</h3>
+                <p>In Discord's settings, open Sunbird, then desktop-themes. Press Open themes folder, put the file there and reload the plugins, then pick the theme under Theme.</p>
+              </li>
+            </ol>
+          </section>
+
+          <section id="comments" class="theme-block" aria-labelledby="comments-title" hidden>
+            <h2 id="comments-title">Ratings and comments</h2>
+            <p>Rate this theme with 👍 or 👎 just below, or leave a comment. Both go through GitHub Discussions, so they need a GitHub account.</p>
+            <div id="giscus" class="giscus"></div>
+          </section>
+        </div>
       </div>
     </article>
-
-    <section id="comments" class="section" aria-labelledby="comments-title" hidden>
-      <h2 id="comments-title">Comments</h2>
-      <p>Rate this theme with 👍 or 👎 just below, or leave a comment. Both go through GitHub Discussions, so they need a GitHub account.</p>
-      <div id="giscus" class="giscus"></div>
-    </section>
-
-    <section id="use" class="section" aria-labelledby="use-title">
-      <h2 id="use-title">Use it</h2>
-      <ol class="steps">
-        <li>
-          <h3>Patch Discord Phoenix with Sunbird</h3>
-          <p>Install it from <a href="https://sunbird.tools/">sunbird.tools</a> on Discord Phoenix for Windows. Themes come with Sunbird's desktop-themes plugin: if it is not in Sunbird's settings yet, it arrives with the next Sunbird update.</p>
-        </li>
-        <li>
-          <h3>Download a theme</h3>
-          <p>Open a theme's page and press Download. You get a small <code>.theme.css</code> file.</p>
-        </li>
-        <li>
-          <h3>Apply it</h3>
-          <p>In Discord's settings, open Sunbird, then desktop-themes. Press Open themes folder, put the file there and reload the plugins, then pick your theme under Theme.</p>
-        </li>
-      </ol>
-    </section>
   </main>
 
   <footer class="site-footer">

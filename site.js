@@ -88,3 +88,22 @@ if ('CommandEvent' in window) {
     if (target) copy(button, target);
   });
 }
+
+/* Links to other sites open in a new tab, so ultracord.dev stays open behind them. Downloads, marked
+   `data-download`, stay in place: in a new tab they would leave an empty one behind. */
+
+function openOutside(root) {
+  const links = root.matches?.('a[href]') ? [root] : root.querySelectorAll?.('a[href]') ?? [];
+  for (const link of links) {
+    if (link.origin === location.origin || link.hasAttribute('data-download')) continue;
+    link.target = '_blank';
+    link.rel = 'noopener';
+  }
+}
+
+openOutside(document);
+new MutationObserver((records) => {
+  for (const record of records) {
+    for (const node of record.addedNodes) if (node.nodeType === Node.ELEMENT_NODE) openOutside(node);
+  }
+}).observe(document.body, { childList: true, subtree: true });
