@@ -138,3 +138,63 @@ export function saveFile(blob, filename) {
   element('a', { href: url, download: filename }).click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
+/* Theme cards and pages. */
+
+export const themeHref = (t) => `theme.html?name=${encodeURIComponent(t.name)}`;
+
+/** Whether the theme's chat background is light. */
+export function isLight(t) {
+  return luminance(palette(t)['bg-primary'].slice(0, 7)) > 0.4;
+}
+
+/** For a port of someone else's palette: a link to the original and its license. */
+export function credit(t) {
+  if (typeof t.source !== 'string' || !t.source.startsWith('https://')) return [];
+  const license = typeof t.license === 'string' ? t.license : '';
+  const short = license.split(',')[0].trim();
+  return [element('li', { title: license },
+    element('a', { href: t.source, rel: 'noopener', textContent: 'Original palette' }),
+    short ? ` (${short})` : '')];
+}
+
+/** Saves `<name>.theme.css`: the file is on another origin, where `download` alone opens it. */
+export function downloadLink(t, className = 'button button-small button-ghost') {
+  const link = element('a', { className, href: t.url },
+    'Download', element('span', { className: 'visually-hidden', textContent: ` ${t.title}` }));
+  link.addEventListener('click', async (event) => {
+    event.preventDefault();
+    try {
+      const res = await fetch(t.url, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      saveFile(await res.blob(), `${t.name}.theme.css`);
+    } catch {
+      location.href = t.url;
+    }
+  });
+  return link;
+}
+
+/** A card with the theme's sketch and palette. The whole card opens the theme's page. */
+export function themeCard(t) {
+  const colors = palette(t);
+  const swatches = element('ul', { className: 'swatches', ariaLabel: 'Palette' },
+    ...COLORS.slice(0, 7).map(([key, label]) => {
+      const item = element('li', { title: `${label} ${colors[key]}` },
+        element('span', { className: 'visually-hidden', textContent: `${label} ${colors[key]}` }));
+      item.style.setProperty('--c', colors[key]);
+      return item;
+    }));
+  const article = element('article', { className: 'card theme-card' },
+    sketch(t),
+    element('h3', {}, element('a', { className: 'card-link', href: themeHref(t), textContent: t.title })),
+    element('p', { textContent: t.description }),
+    element('ul', { className: 'meta' },
+      element('li', { textContent: `v${t.version}` }),
+      element('li', { textContent: `by ${t.author}` }),
+      ...credit(t)),
+    swatches,
+    element('footer', {}, downloadLink(t)));
+  article.style.setProperty('--tp-accent', colors['accent-color']);
+  return element('li', {}, article);
+}

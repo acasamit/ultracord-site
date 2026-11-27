@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Themes: Ultracord</title>
+  <meta name="description" content="Every Sunbird theme on Ultracord, with a preview of Discord in its colors.">
+  <meta property="og:title" content="Ultracord themes">
+  <meta property="og:description" content="Community themes for Sunbird, with a preview of each one.">
+  <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
+  <meta property="og:url" content="https://ultracord.dev/themes.html">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="themes.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link visually-hidden" href="#main-title">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="./">
+        <img src="favicon.svg" width="40" height="40" alt="">
+        <span class="wordmark">Ultra<span>cord</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span>Menu</span>
+        </button>
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="themes.html" aria-current="page">Themes</a></li>
+          <li><a href="create.html">Create</a></li>
+          <li><a href="plugins.html">Plugins</a></li>
+          <li><a href="./#install">Install</a></li>
+          <li><a href="https://discord.gg/4bGBcUesCu">Discord</a></li>
+          <li><a href="https://github.com/acasamit/ultracord">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head" aria-labelledby="main-title">
+      <h1 id="main-title" tabindex="-1">Themes</h1>
+      <p class="lead">Palettes that recolor all of Discord: the backgrounds, the text, the accent, the borders, even how round the corners are. Open one to see it up close.</p>
+    </section>
+
+    <div class="catalog-tools">
+      <div class="search">
+        <label for="theme-search">Search themes</label>
+        <input id="theme-search" type="search" autocomplete="off" spellcheck="false">
+      </div>
+      <fieldset class="segmented">
+        <legend>Show</legend>
+        <div class="segmented-options">
+          <label><input type="radio" name="tone" value="all" checked> All</label>
+          <label><input type="radio" name="tone" value="dark"> Dark</label>
+          <label><input type="radio" name="tone" value="light"> Light</label>
+        </div>
+      </fieldset>
+    </div>
+    <p id="themes-status" class="status" role="status">Loading the themes…</p>
+    <ul id="themes-catalog" class="cards theme-cards"></ul>
+
+    <section class="section" aria-labelledby="make-title">
+      <h2 id="make-title">Make your own</h2>
+      <p>Pick the colors, watch Discord change, then download your theme or propose it to the store.</p>
+      <p class="actions">
+        <a class="button" href="create.html">Open the theme maker</a>
+        <a class="button button-ghost" href="./#install">How to use a theme</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Ultracord is not affiliated with Discord or the Sunbird project.</p>
+    <p><a href="https://discord.gg/4bGBcUesCu">Discord</a> · <a href="https://github.com/acasamit/ultracord">Source on GitHub</a> · <a href="https://github.com/acasamit/ultracord/blob/main/LICENSE">GPL-3.0</a> · <a href="https://ko-fi.com/acasamit">Support on Ko-fi</a></p>
+  </footer>
+</body>
+</html>

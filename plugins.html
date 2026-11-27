@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Plugins: Ultracord</title>
+  <meta name="description" content="Reviewed community plugins for Sunbird, each with what it can reach.">
+  <meta property="og:title" content="Ultracord plugins">
+  <meta property="og:description" content="Reviewed community plugins for Sunbird.">
+  <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
+  <meta property="og:url" content="https://ultracord.dev/plugins.html">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="plugins.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link visually-hidden" href="#main-title">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="./">
+        <img src="favicon.svg" width="40" height="40" alt="">
+        <span class="wordmark">Ultra<span>cord</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span>Menu</span>
+        </button>
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="themes.html">Themes</a></li>
+          <li><a href="create.html">Create</a></li>
+          <li><a href="plugins.html" aria-current="page">Plugins</a></li>
+          <li><a href="./#install">Install</a></li>
+          <li><a href="https://discord.gg/4bGBcUesCu">Discord</a></li>
+          <li><a href="https://github.com/acasamit/ultracord">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head" aria-labelledby="main-title">
+      <h1 id="main-title" tabindex="-1">Plugins</h1>
+      <p class="lead">A few plugins for Sunbird, read line by line before they are listed. Each one says what it can reach: the network, the Discord API with your session, your local message cache.</p>
+      <p>To install one, copy its link. Then in Discord's settings, open Phoenix (Sunbird on desktop), choose Install from URL (+ URL on desktop) and paste it.</p>
+    </section>
+
+    <div class="search">
+      <label for="plugin-search">Search plugins</label>
+      <input id="plugin-search" type="search" autocomplete="off" spellcheck="false">
+    </div>
+    <p id="catalog-status" class="status" role="status">Loading the catalog…</p>
+    <ul id="catalog" class="cards"></ul>
+  </main>
+
+  <footer class="site-footer">
+    <p>Ultracord is not affiliated with Discord or the Sunbird project.</p>
+    <p><a href="https://discord.gg/4bGBcUesCu">Discord</a> · <a href="https://github.com/acasamit/ultracord">Source on GitHub</a> · <a href="https://github.com/acasamit/ultracord/blob/main/LICENSE">GPL-3.0</a> · <a href="https://ko-fi.com/acasamit">Support on Ko-fi</a></p>
+  </footer>
+</body>
+</html>

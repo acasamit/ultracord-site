@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Theme: Ultracord</title>
+  <meta name="description" content="A Sunbird theme on Ultracord: its preview, its palette and how to use it.">
+  <meta property="og:title" content="Ultracord theme">
+  <meta property="og:description" content="A community theme for Sunbird.">
+  <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
+  <meta property="og:url" content="https://ultracord.dev/theme.html">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme-page.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link visually-hidden" href="#main-title">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="./">
+        <img src="favicon.svg" width="40" height="40" alt="">
+        <span class="wordmark">Ultra<span>cord</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span>Menu</span>
+        </button>
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="themes.html" aria-current="page">Themes</a></li>
+          <li><a href="create.html">Create</a></li>
+          <li><a href="plugins.html">Plugins</a></li>
+          <li><a href="./#install">Install</a></li>
+          <li><a href="https://discord.gg/4bGBcUesCu">Discord</a></li>
+          <li><a href="https://github.com/acasamit/ultracord">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="themes.html">Themes</a>
+      <span aria-hidden="true">/</span>
+      <span id="crumb" aria-current="page">Theme</span>
+    </nav>
+    <p id="theme-status" class="status" role="status">Loading the theme…</p>
+
+    <article id="theme" class="theme-page" hidden>
+      <div id="theme-preview" class="theme-preview"></div>
+      <div class="theme-info">
+        <h1 id="main-title" tabindex="-1">Theme</h1>
+        <p id="theme-description" class="lead"></p>
+        <ul id="theme-meta" class="meta"></ul>
+        <p id="theme-actions" class="actions"></p>
+        <h2 class="palette-title">Palette</h2>
+        <dl id="theme-palette" class="palette"></dl>
+      </div>
+    </article>
+
+    <section id="use" class="section" aria-labelledby="use-title">
+      <h2 id="use-title">Use it</h2>
+      <ol class="steps">
+        <li>
+          <h3>Patch Discord Phoenix with Sunbird</h3>
+          <p>Install it from <a href="https://sunbird.tools/">sunbird.tools</a> on Discord Phoenix for Windows. Themes come with Sunbird's desktop-themes plugin: if it is not in Sunbird's settings yet, it arrives with the next Sunbird update.</p>
+        </li>
+        <li>
+          <h3>Download a theme</h3>
+          <p>Open a theme's page and press Download. You get a small <code>.theme.css</code> file.</p>
+        </li>
+        <li>
+          <h3>Apply it</h3>
+          <p>In Discord's settings, open Sunbird, then desktop-themes. Press Open themes folder, put the file there and reload the plugins, then pick your theme under Theme.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Ultracord is not affiliated with Discord or the Sunbird project.</p>
+    <p><a href="https://discord.gg/4bGBcUesCu">Discord</a> · <a href="https://github.com/acasamit/ultracord">Source on GitHub</a> · <a href="https://github.com/acasamit/ultracord/blob/main/LICENSE">GPL-3.0</a> · <a href="https://ko-fi.com/acasamit">Support on Ko-fi</a></p>
+  </footer>
+</body>
+</html>

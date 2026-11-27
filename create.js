@@ -207,7 +207,16 @@ async function loadCatalog(selected) {
     return;
   }
   startFrom.append(...catalog.map((t) => element('option', { value: t.name, textContent: t.title })));
-  if (selected && catalog.some((t) => t.name === selected)) startFrom.value = selected;
+  // "Edit a copy" on a theme's page opens the maker with ?from=<name>. The parameter goes once
+  // used, so a reload keeps the edits.
+  const from = catalog.find((t) => t.name === new URLSearchParams(location.search).get('from'));
+  if (from) {
+    startFrom.value = from.name;
+    setColors(from.colors, from.radiusScale ?? 1);
+    history.replaceState(null, '', location.pathname);
+  } else if (selected && catalog.some((t) => t.name === selected)) {
+    startFrom.value = selected;
+  }
   update();
 }
 

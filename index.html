@@ -6,10 +6,10 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0b0d">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
-  <title>Ultracord: themes and plugins for Sunbird</title>
-  <meta name="description" content="Community themes and reviewed plugins for Sunbird, the Discord Phoenix unlocker. Recolor Discord in one click.">
+  <title>Ultracord: themes for Sunbird</title>
+  <meta name="description" content="Community themes for Sunbird, the Discord Phoenix unlocker. Browse them, make your own in the browser and share it.">
   <meta property="og:title" content="Ultracord">
-  <meta property="og:description" content="Community themes and plugins for Sunbird, reviewed before they ship.">
+  <meta property="og:description" content="Community themes for Sunbird: browse them, make your own, share it.">
   <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
   <meta property="og:url" content="https://ultracord.dev/">
   <link rel="icon" href="favicon.ico" sizes="48x48">
@@ -35,11 +35,10 @@
           <span>Menu</span>
         </button>
         <ul id="site-menu" class="site-menu" popover="auto">
-          <li><a href="#themes">Themes</a></li>
-          <li><a href="#plugins">Plugins</a></li>
-          <li><a href="#install">Install</a></li>
-          <li><a href="#contribute">Contribute</a></li>
-          <li><a href="#support">Support</a></li>
+          <li><a href="themes.html">Themes</a></li>
+          <li><a href="create.html">Create</a></li>
+          <li><a href="plugins.html">Plugins</a></li>
+          <li><a href="./#install">Install</a></li>
           <li><a href="https://discord.gg/4bGBcUesCu">Discord</a></li>
           <li><a href="https://github.com/acasamit/ultracord">GitHub</a></li>
         </ul>
@@ -52,59 +51,57 @@
       <img class="hero-mark" src="assets/ultracord-logo-on-dark.svg" width="700" height="440" alt="" fetchpriority="high">
       <div class="hero-text">
         <h1 id="main-title" tabindex="-1">Recolor your Discord</h1>
-        <p class="lead">Ultracord is a community hub of themes and plugins for Sunbird, the Discord Phoenix unlocker. Pick a theme in one click, add plugins read line by line before they ship, or make your own.</p>
+        <p class="lead">Ultracord is the community hub for Sunbird themes. Browse palettes made by the community, make your own in the browser, and share it with everyone.</p>
         <p class="actions">
-          <a class="button" href="#themes">Browse themes</a>
-          <a class="button button-ghost" href="#install">Install Ultracord</a>
+          <a class="button" href="themes.html">Browse themes</a>
+          <a class="button button-ghost" href="create.html">Make a theme</a>
         </p>
       </div>
     </section>
 
     <section id="themes" class="section" aria-labelledby="themes-title">
       <h2 id="themes-title">Themes</h2>
-      <p>Sunbird recolors all of Discord from a theme's palette: the backgrounds, the text, the accent, the borders, even how round the corners are. Pick one in Ultracord's settings, under Theme. Windows desktop only for now.</p>
+      <p>Each theme recolors all of Discord from one palette: the backgrounds, the text, the accent, the borders, even how round the corners are. A few picks:</p>
       <p id="themes-status" class="status" role="status">Loading the themes…</p>
-      <ul id="themes-catalog" class="cards theme-cards"></ul>
+      <ul id="featured" class="cards theme-cards"></ul>
       <p class="actions">
-        <a class="button" href="create.html">Make your own theme</a>
+        <a id="all-themes" class="button" href="themes.html">See all themes</a>
+      </p>
+    </section>
+
+    <section id="make" class="section" aria-labelledby="make-title">
+      <h2 id="make-title">Make your own</h2>
+      <p>The theme maker draws your colors on a live sketch of Discord and checks that the text stays readable. Download the result, or propose it to the store so everyone can pick it. No code needed.</p>
+      <p class="actions">
+        <a class="button" href="create.html">Open the theme maker</a>
         <a class="button button-ghost" href="https://github.com/acasamit/ultracord/blob/main/themes/README.md">The theme format</a>
       </p>
     </section>
 
-    <section id="plugins" class="section" aria-labelledby="plugins-title">
-      <h2 id="plugins-title">Plugins</h2>
-      <p>Each plugin lists what it can reach before you install it: the network, the Discord API with your session, your local message cache. Nothing is hidden in a minified file.</p>
-      <div class="search">
-        <label for="plugin-search">Search plugins</label>
-        <input id="plugin-search" type="search" autocomplete="off" spellcheck="false">
-      </div>
-      <p id="catalog-status" class="status" role="status">Loading the catalog…</p>
-      <ul id="catalog" class="cards"></ul>
-    </section>
-
     <section id="install" class="section" aria-labelledby="install-title">
-      <h2 id="install-title">Install</h2>
+      <h2 id="install-title">Use a theme</h2>
       <ol class="steps">
         <li>
           <h3>Patch Discord Phoenix with Sunbird</h3>
-          <p>Open <a href="https://sunbird.tools/">sunbird.tools</a> on your phone and keep the plugin runtime turned on. Desktop Phoenix works too.</p>
+          <p>Install it from <a href="https://sunbird.tools/">sunbird.tools</a> on Discord Phoenix for Windows. Themes come with Sunbird's desktop-themes plugin: if it is not in Sunbird's settings yet, it arrives with the next Sunbird update.</p>
         </li>
         <li>
-          <h3>Add Ultracord</h3>
-          <p>In Discord's settings, open Phoenix (Sunbird on desktop), choose Install from URL (+ URL on desktop) and paste this link:</p>
-          <div class="copy-row">
-            <code id="store-url">https://assets.ultracord.dev/plugins/ultracord.js</code>
-            <span class="copy">
-              <button class="copy-button" type="button" command="--copy" commandfor="store-url">Copy link<span class="visually-hidden"> to the Ultracord plugin</span></button>
-              <span class="tip" role="status"></span>
-            </span>
-          </div>
+          <h3>Download a theme</h3>
+          <p>Open a theme's page and press Download. You get a small <code>.theme.css</code> file.</p>
         </li>
         <li>
-          <h3>Pick a theme and your plugins</h3>
-          <p>Open Ultracord's page in Sunbird's settings, or its button in the chat header on mobile. Choose a theme under Theme on desktop, then pick plugins: each one shows what it can access, and Ultracord tells you when an update is out.</p>
+          <h3>Apply it</h3>
+          <p>In Discord's settings, open Sunbird, then desktop-themes. Press Open themes folder, put the file there and reload the plugins, then pick your theme under Theme.</p>
         </li>
       </ol>
+    </section>
+
+    <section id="plugins" class="section" aria-labelledby="plugins-title">
+      <h2 id="plugins-title">Plugins</h2>
+      <p>Ultracord also lists a few plugins for Sunbird, read line by line before they ship. Each one says what it can reach before you install it.</p>
+      <p class="actions">
+        <a class="button button-ghost" href="plugins.html">Browse plugins</a>
+      </p>
     </section>
 
     <section id="contribute" class="section" aria-labelledby="contribute-title">
