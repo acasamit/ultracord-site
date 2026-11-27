@@ -43,7 +43,6 @@ function show(t, stats) {
   const s = stats?.[t.name];
   const r = rating(s);
   const downloads = typeof s?.downloads === 'number' ? countText(s.downloads, 'downloads') : null;
-  const comments = typeof s?.comments === 'number' ? countText(s.comments, 'comments') : null;
   const updated = date(t.updated);
 
   document.title = `${t.title}: Ultracord theme`;
@@ -97,11 +96,11 @@ function show(t, stats) {
   page.style.setProperty('--tp-accent', colors['accent-color']);
   page.hidden = false;
   status.hidden = true;
-  comments(t);
+  loadComments(t);
 }
 
 /** The giscus thread for this theme, loaded once the section comes near so a quick visit never reaches GitHub. */
-function comments(t) {
+function loadComments(t) {
   if (!GISCUS) return;
   const section = document.getElementById('comments');
   section.hidden = false;
@@ -136,7 +135,9 @@ async function load() {
     const theme = themes.find((t) => t.name === name);
     if (theme) show(theme, stats);
     else status.replaceChildren('This theme is not in the store. ', element('a', { href: 'themes.html', textContent: 'See all themes' }), '.');
-  } catch {
+  } catch (err) {
+    console.error(err);
+    status.hidden = false;
     status.textContent = 'The theme could not be loaded. Try again in a moment.';
   }
 }
