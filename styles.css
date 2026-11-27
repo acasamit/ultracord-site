@@ -71,7 +71,7 @@ a {
   }
 }
 
-:where(a:any-link, button, input):focus-visible {
+:where(a:any-link, button, input, select):focus-visible {
   outline: 3px solid var(--bone);
   outline-offset: 3px;
 }
@@ -863,5 +863,337 @@ main {
 @media (forced-colors: active) {
   .tp {
     display: none;
+  }
+}
+
+/* Theme maker: the form on the left, the sketch and its checks kept in view on the right. On a
+   phone the sketch stays pinned under the header, smaller, above the form. */
+
+button.button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.button[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.creator-head {
+  padding-block: clamp(2rem, 1.5rem + 3vw, 4rem) 1.5rem;
+
+  h1:focus {
+    outline: none;
+  }
+}
+
+.creator {
+  display: grid;
+  gap: 2rem;
+  padding-block-end: clamp(3rem, 2rem + 4vw, 5.5rem);
+}
+
+.creator-side {
+  position: sticky;
+  inset-block-start: 4.1rem;
+  z-index: 1;
+  padding-block: 0.75rem;
+  background: var(--ink);
+  border-block-end: 1px solid var(--line);
+}
+
+.creator-preview .tp {
+  max-inline-size: calc(30dvh * 1.6);
+  margin-inline: auto;
+}
+
+@media (width >= 60rem) {
+  .creator {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-areas:
+      "form side"
+      "out side";
+    align-items: start;
+    column-gap: 3rem;
+  }
+
+  .creator-form {
+    grid-area: form;
+  }
+
+  .creator-out {
+    grid-area: out;
+  }
+
+  .creator-side {
+    grid-area: side;
+    inset-block-start: 6rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .creator-preview .tp {
+    max-inline-size: none;
+  }
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.375rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+
+  li {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--line-strong);
+    background: var(--panel);
+    color: var(--muted);
+
+    &::before {
+      content: "\2713" / "";
+      color: var(--bone);
+      font-weight: 700;
+    }
+  }
+
+  strong {
+    color: var(--bone);
+  }
+
+  .is-low {
+    border-color: var(--red-text);
+
+    &::before {
+      content: "\00D7" / "";
+      color: var(--red-text);
+    }
+
+    strong,
+    .needs {
+      color: var(--red-text);
+    }
+  }
+}
+
+@media (width >= 60rem) {
+  .checks {
+    justify-content: start;
+    font-size: 0.875rem;
+  }
+}
+
+.field-group {
+  margin: 0 0 2rem;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+
+  legend {
+    margin-block-end: 0.75rem;
+    padding: 0;
+    font-family: var(--display);
+    font-size-adjust: cap-height from-font;
+    font-size: 1.5rem;
+    font-style: italic;
+    text-transform: uppercase;
+    text-shadow: 0.06em 0.06em 0 var(--deep);
+  }
+}
+
+.field {
+  display: grid;
+  gap: 0.375rem;
+  margin-block-end: 1.25rem;
+
+  > label {
+    font-weight: 600;
+  }
+}
+
+.help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.creator-form :is(input[type="text"], select) {
+  min-block-size: 2.75rem;
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--bone);
+  font: inherit;
+}
+
+.color-rows {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.color-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.75rem 6.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.875rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+
+  label {
+    font-weight: 600;
+  }
+
+  .help {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+
+  input[type="color"] {
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    background: none;
+    cursor: pointer;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    &::-webkit-color-swatch {
+      border: 0;
+    }
+
+    &::-moz-color-swatch {
+      border: 0;
+    }
+  }
+
+  .hex {
+    background: var(--ink);
+    font-family: var(--mono);
+    font-size: 0.9375rem;
+    text-transform: lowercase;
+
+    &[aria-invalid="true"] {
+      border-color: var(--red-text);
+    }
+  }
+}
+
+.color-name {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.range-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  input {
+    flex: 1;
+    min-inline-size: 0;
+    min-block-size: 2.75rem;
+  }
+
+  output {
+    min-inline-size: 3ch;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-block-size: 2.75rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  input {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin: 0;
+  }
+}
+
+.creator-out {
+  min-inline-size: 0;
+
+  h2 {
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  }
+
+  h3 {
+    margin-block-start: 2rem;
+    font-size: 1.375rem;
+  }
+
+  > p:not(.actions) {
+    color: var(--muted);
+  }
+}
+
+.out-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-block-end: 0.5rem;
+}
+
+.file-name {
+  overflow-wrap: anywhere;
+  color: var(--muted);
+}
+
+.code-box {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.creator-out .actions {
+  margin-block-start: 1.25rem;
+}
+
+.try-steps {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  color: var(--muted);
+  max-inline-size: 60ch;
+
+  li {
+    margin-block-end: 0.375rem;
+  }
+
+  li::marker {
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  strong {
+    color: var(--bone);
   }
 }

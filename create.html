@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Make a theme: Ultracord</title>
+  <meta name="description" content="Make a Discord theme for Sunbird in your browser: pick the colors, see them live, then download it or propose it to Ultracord's store.">
+  <meta property="og:title" content="Make a theme on Ultracord">
+  <meta property="og:description" content="Pick the colors, see Discord change, then download your theme or propose it to the store.">
+  <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
+  <meta property="og:url" content="https://ultracord.dev/create.html">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="create.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link visually-hidden" href="#main-title">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="./">
+        <img src="favicon.svg" width="40" height="40" alt="">
+        <span class="wordmark">Ultra<span>cord</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span>Menu</span>
+        </button>
+        <ul id="site-menu" class="site-menu" popover="auto">
+          <li><a href="./#themes">Themes</a></li>
+          <li><a href="./#plugins">Plugins</a></li>
+          <li><a href="./#install">Install</a></li>
+          <li><a href="./#contribute">Contribute</a></li>
+          <li><a href="./#support">Support</a></li>
+          <li><a href="https://github.com/acasamit/ultracord">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="creator-head" aria-labelledby="main-title">
+      <h1 id="main-title" tabindex="-1">Make a theme</h1>
+      <p class="lead">Pick the colors and watch Discord change. When you like it, download your <code>.theme.css</code> or propose it to the store, so everyone with Ultracord can pick it.</p>
+      <noscript><p class="status">The theme maker needs JavaScript.</p></noscript>
+    </section>
+
+    <div class="creator">
+      <div class="creator-side">
+        <div id="preview" class="creator-preview"></div>
+        <ul id="checks" class="checks" aria-label="Readability checks"></ul>
+      </div>
+
+      <form id="theme-form" class="creator-form" novalidate>
+        <div class="field">
+          <label for="start-from">Start from</label>
+          <select id="start-from" aria-describedby="start-help">
+            <option value="">Discord's colors</option>
+          </select>
+          <p id="start-help" class="help">Loads a theme's colors to tweak. Your name and description stay.</p>
+        </div>
+
+        <fieldset class="field-group">
+          <legend>Colors</legend>
+          <div id="color-rows" class="color-rows"></div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend>Shape</legend>
+          <div class="field">
+            <label for="radius-scale">Corner rounding</label>
+            <div class="range-row">
+              <input id="radius-scale" type="range" min="0" max="2.5" step="0.05" value="1" aria-describedby="radius-help">
+              <output id="radius-value" for="radius-scale">1.00</output>
+            </div>
+            <p id="radius-help" class="help">0 is square, 1 is Discord's own, 2.5 is very round.</p>
+          </div>
+          <div class="field">
+            <label class="check"><input id="override-nitro" type="checkbox" checked aria-describedby="nitro-help"> Cover Nitro client themes</label>
+            <p id="nitro-help" class="help">Turned off, a Nitro client theme keeps its gradients under your colors.</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend>About it</legend>
+          <div class="field">
+            <label for="theme-name">Name</label>
+            <input id="theme-name" type="text" maxlength="40" autocomplete="off" aria-describedby="name-help">
+            <p id="name-help" class="help">Its file is named after it, like <code>my-theme.theme.css</code>.</p>
+          </div>
+          <div class="field">
+            <label for="theme-description">Description</label>
+            <input id="theme-description" type="text" maxlength="140" autocomplete="off" aria-describedby="description-help">
+            <p id="description-help" class="help">One sentence, like "Ink black, bone text and a blood red accent."</p>
+          </div>
+          <div class="field">
+            <label for="theme-author">Your GitHub name</label>
+            <input id="theme-author" type="text" maxlength="39" autocomplete="off" autocapitalize="none" spellcheck="false">
+          </div>
+        </fieldset>
+      </form>
+
+      <section class="creator-out" aria-labelledby="out-title">
+        <h2 id="out-title">Your theme</h2>
+        <div class="out-head">
+          <code id="file-name" class="file-name">my-theme.theme.css</code>
+          <span class="copy">
+            <button class="copy-button" type="button" command="--copy" commandfor="theme-css">Copy<span class="visually-hidden"> the theme's code</span></button>
+            <span class="tip" role="status"></span>
+          </span>
+        </div>
+        <pre class="code-box"><code id="theme-css"></code></pre>
+        <p class="actions">
+          <button id="download" class="button" type="button">Download</button>
+          <a id="propose" class="button button-ghost" target="_blank" rel="noopener" aria-describedby="propose-status">Propose to the store</a>
+        </p>
+        <p id="propose-status" class="status" role="status"></p>
+
+        <h3>Try it in Discord</h3>
+        <ol class="try-steps">
+          <li>Download it, then open Discord's settings, Sunbird, and the <strong>desktop-themes</strong> plugin.</li>
+          <li>Press <strong>Open themes folder</strong>, put the file there and reload the plugins.</li>
+          <li>Pick it under <strong>Theme</strong>. If Ultracord applies a theme too, set Ultracord's Theme to Off first.</li>
+        </ol>
+
+        <h3>What proposing does</h3>
+        <p>GitHub opens with your file ready to add. It makes a copy of the store under your account, then you open a pull request. Once your theme passes the checks and is reviewed, it shows up on this site and in everyone's Ultracord.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Ultracord is not affiliated with Discord or the Sunbird project.</p>
+    <p><a href="https://github.com/acasamit/ultracord">Source on GitHub</a> · <a href="https://github.com/acasamit/ultracord/blob/main/LICENSE">GPL-3.0</a> · <a href="https://ko-fi.com/acasamit">Support on Ko-fi</a></p>
+  </footer>
+</body>
+</html>
