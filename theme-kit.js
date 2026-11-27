@@ -209,16 +209,38 @@ export function themeCard(t) {
   return element('li', {}, article);
 }
 
-/* Downloads, comments and reactions, which the store counts every hour and after each comment. */
+/* Downloads, ratings and comments, which the store counts every hour and after each comment. */
 
 const STATS = 'https://assets.ultracord.dev/themes/stats.json';
-export const STAT_KEYS = ['downloads', 'comments', 'reactions'];
-const NOUNS = { downloads: 'download', comments: 'comment', reactions: 'reaction' };
+export const STAT_KEYS = ['downloads', 'rating', 'comments'];
+const NOUNS = { downloads: 'download', comments: 'comment', rating: 'rating' };
 const ICONS = {
   downloads: 'M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14',
+  rating: 'M7.5 11v9h-3v-9zm0 0 3.6-7.1a1.8 1.8 0 0 1 3.3 1.2L13.6 9h5a2 2 0 0 1 2 2.4l-1.3 6.8a2.2 2.2 0 0 1-2.2 1.8H7.5',
   comments: 'M4 4.5h16v11H10l-6 4.5z',
-  reactions: 'M12 20 4.9 12.9a4.4 4.4 0 0 1 6.2-6.2l.9.9.9-.9a4.4 4.4 0 0 1 6.2 6.2z',
 };
+
+/** The 👍 and 👎 on a theme's thread, as a share of positive ratings. */
+export function rating(stats) {
+  const up = stats?.up;
+  const down = stats?.down;
+  if (typeof up !== 'number' || typeof down !== 'number') return null;
+  const votes = up + down;
+  return { votes, percent: votes ? Math.round((up / votes) * 100) : null };
+}
+
+/**
+ * How sure we are a theme is liked: the low end of the Wilson interval at 95%. A single 👍 then
+ * ranks below 95% of 200 votes, which a plain percentage would not do.
+ */
+export function ratingScore(stats) {
+  const r = rating(stats);
+  if (!r?.votes) return -1;
+  const z = 1.96;
+  const n = r.votes;
+  const p = stats.up / n;
+  return (p + (z * z) / (2 * n) - z * Math.sqrt((p * (1 - p) + (z * z) / (4 * n)) / n)) / (1 + (z * z) / n);
+}
 
 /** Each theme's counts, `{ name: { downloads, comments, reactions } }`, or null. */
 export async function themeStats() {
@@ -245,16 +267,26 @@ function icon(key) {
   return svg;
 }
 
-/** The counts a theme has, zeros included, with an icon each. `labels` spells the nouns out. */
+/** The counts a theme has, zeros included, with an icon each. `labels` spells them out. */
 export function statsRow(stats, labels = false) {
   const row = element('ul', { className: 'stats', ariaLabel: 'Stats' });
   for (const key of STAT_KEYS) {
-    const n = stats?.[key];
-    if (typeof n !== 'number') continue;
-    const text = countText(n, key);
+    let short;
+    let text;
+    if (key === 'rating') {
+      const r = rating(stats);
+      if (!r) continue;
+      short = r.votes ? `${r.percent}%` : 'New';
+      text = r.votes ? `${r.percent}% positive (${countText(r.votes, 'rating')})` : 'No ratings yet';
+    } else {
+      const n = stats?.[key];
+      if (typeof n !== 'number') continue;
+      short = n.toLocaleString('en');
+      text = countText(n, key);
+    }
     row.append(element('li', { title: text }, icon(key),
-      labels ? text : element('span', {}, n.toLocaleString('en'),
-        element('span', { className: 'visually-hidden', textContent: ` ${NOUNS[key]}${n === 1 ? '' : 's'}` }))));
+      labels ? text : element('span', { ariaHidden: 'true', textContent: short }),
+      labels ? '' : element('span', { className: 'visually-hidden', textContent: text })));
   }
   return row;
 }

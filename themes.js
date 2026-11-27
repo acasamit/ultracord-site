@@ -1,7 +1,7 @@
 // Every theme, with a search box, a sort order and a dark or light filter. The sort is kept in the
 // address, like `themes.html?sort=downloads`, so a sorted list can be shared.
 import './site.js';
-import { fetchThemes, isLight, showStats, themeCard, themeStats } from './theme-kit.js';
+import { fetchThemes, isLight, ratingScore, showStats, themeCard, themeStats } from './theme-kit.js';
 
 const list = document.getElementById('themes-catalog');
 const status = document.getElementById('themes-status');
@@ -18,8 +18,8 @@ const most = (key) => (a, b) => stat(b, key) - stat(a, key) || a.rank - b.rank;
 const ORDERS = {
   featured: (a, b) => a.rank - b.rank,
   downloads: most('downloads'),
+  rated: (a, b) => ratingScore(stats?.[b.theme.name]) - ratingScore(stats?.[a.theme.name]) || a.rank - b.rank,
   comments: most('comments'),
-  reactions: most('reactions'),
   name: (a, b) => a.theme.title.localeCompare(b.theme.title),
 };
 
