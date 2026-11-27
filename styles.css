@@ -640,3 +640,228 @@ main {
     border: 2px solid ButtonText;
   }
 }
+
+/* Themes: each card draws a sketch of Discord in the theme's palette. */
+
+.theme-cards {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+}
+
+.theme-card {
+  border-block-start-color: var(--tp-accent, var(--red));
+}
+
+.button-small {
+  min-block-size: 2.25rem;
+  padding: 0.375rem 1.125rem;
+  font-size: 1rem;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    inline-size: 1.375rem;
+    aspect-ratio: 1;
+    background: var(--c);
+    border: 1px solid var(--line-strong);
+  }
+}
+
+/* The sketch: server list, channels, chat with a popup. Sizes follow the card's width. */
+.tp {
+  --tp-r: 1;
+  display: grid;
+  grid-template-columns: 11% 28% 1fr;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--tp-primary);
+  container-type: inline-size;
+}
+
+/* Below the layout rules, so a row stays flex. */
+:where(.tp span) {
+  display: block;
+}
+
+.tp-bar {
+  flex: none;
+  inline-size: var(--w);
+  block-size: 1.6cqi;
+  border-radius: 1cqi;
+  background: var(--tp-muted);
+  opacity: 0.8;
+
+  &.is-strong {
+    background: var(--tp-text);
+    opacity: 1;
+  }
+}
+
+.tp-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4cqi;
+  padding-block: 3cqi;
+  background: var(--tp-tertiary);
+}
+
+.tp-server {
+  inline-size: 6.6cqi;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--tp-elevated);
+
+  &.is-home,
+  &.is-active {
+    border-radius: calc(2cqi * var(--tp-r));
+    background: var(--tp-accent);
+  }
+}
+
+.tp-sep {
+  inline-size: 4cqi;
+  block-size: 0.4cqi;
+  background: var(--tp-border);
+}
+
+.tp-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6cqi;
+  padding: 3cqi 2.4cqi;
+  background: var(--tp-secondary);
+}
+
+.tp-name {
+  margin-block-end: 1.6cqi;
+}
+
+.tp-row {
+  display: flex;
+  align-items: center;
+  gap: 1.6cqi;
+  padding: 1.2cqi 1.6cqi;
+  border-radius: calc(1cqi * var(--tp-r));
+
+  &.is-active {
+    background: var(--tp-elevated);
+
+    .tp-bar {
+      background: var(--tp-text);
+      opacity: 1;
+    }
+  }
+}
+
+.tp-hash {
+  flex: none;
+  inline-size: 1.6cqi;
+  aspect-ratio: 1;
+  border: 0.35cqi solid var(--tp-muted);
+  border-radius: 0.4cqi;
+  transform: skewX(-12deg);
+}
+
+.tp-chat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3cqi;
+  padding: 0 3.5cqi 3cqi;
+}
+
+.tp-head {
+  display: flex;
+  align-items: center;
+  gap: 1.6cqi;
+  padding-block: 3cqi;
+  border-block-end: 0.3cqi solid var(--tp-border);
+}
+
+.tp-msg {
+  display: flex;
+  gap: 2.4cqi;
+}
+
+.tp-avatar {
+  flex: none;
+  inline-size: 7cqi;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--tp-elevated);
+
+  &.is-accent {
+    background: var(--tp-accent);
+  }
+}
+
+.tp-lines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1.4cqi;
+  padding-block-start: 0.6cqi;
+}
+
+.tp-new {
+  display: flex;
+  align-items: center;
+  gap: 1.6cqi;
+
+  &::before {
+    content: "";
+    flex: 1;
+    block-size: 0.3cqi;
+    background: var(--tp-accent);
+  }
+}
+
+.tp-pill {
+  inline-size: 7cqi;
+  block-size: 2.4cqi;
+  border-radius: calc(0.8cqi * var(--tp-r));
+  background: var(--tp-accent);
+}
+
+.tp-pop {
+  position: absolute;
+  inset-block-start: 26%;
+  inset-inline-end: 4cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqi;
+  inline-size: 22cqi;
+  padding: 2.4cqi;
+  border: 0.3cqi solid var(--tp-border);
+  border-radius: calc(1.6cqi * var(--tp-r));
+  background: var(--tp-elevated);
+  box-shadow: 0 1.6cqi 4cqi rgb(0 0 0 / 0.4);
+}
+
+.tp-btn {
+  block-size: 3.6cqi;
+  margin-block-start: 0.8cqi;
+  border-radius: calc(1cqi * var(--tp-r));
+  background: var(--tp-accent);
+}
+
+.tp-input {
+  margin-block-start: auto;
+  padding: 2.2cqi 2.4cqi;
+  border-radius: calc(1.6cqi * var(--tp-r));
+  background: var(--tp-elevated);
+}
+
+@media (forced-colors: active) {
+  .tp {
+    display: none;
+  }
+}

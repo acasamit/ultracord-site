@@ -6,10 +6,10 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0b0d">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
-  <title>Ultracord: community plugins for Sunbird</title>
-  <meta name="description" content="A community store of reviewed plugins and themes for Sunbird, the Discord Phoenix unlocker.">
+  <title>Ultracord: themes and plugins for Sunbird</title>
+  <meta name="description" content="Community themes and reviewed plugins for Sunbird, the Discord Phoenix unlocker. Recolor Discord in one click.">
   <meta property="og:title" content="Ultracord">
-  <meta property="og:description" content="Community plugins and themes for Sunbird, reviewed before they ship.">
+  <meta property="og:description" content="Community themes and plugins for Sunbird, reviewed before they ship.">
   <meta property="og:image" content="https://ultracord.dev/assets/ultracord-icon-512.png">
   <meta property="og:url" content="https://ultracord.dev/">
   <link rel="icon" href="favicon.ico" sizes="48x48">
@@ -35,8 +35,8 @@
           <span>Menu</span>
         </button>
         <ul id="site-menu" class="site-menu" popover="auto">
-          <li><a href="#plugins">Plugins</a></li>
           <li><a href="#themes">Themes</a></li>
+          <li><a href="#plugins">Plugins</a></li>
           <li><a href="#install">Install</a></li>
           <li><a href="#contribute">Contribute</a></li>
           <li><a href="#support">Support</a></li>
@@ -50,13 +50,23 @@
     <section class="hero" aria-labelledby="main-title">
       <img class="hero-mark" src="assets/ultracord-logo-on-dark.svg" width="700" height="440" alt="" fetchpriority="high">
       <div class="hero-text">
-        <h1 id="main-title" tabindex="-1">More plugins for Sunbird</h1>
-        <p class="lead">Ultracord is a community store of plugins and themes for Sunbird, the Discord Phoenix unlocker. Every plugin is read line by line before it ships.</p>
+        <h1 id="main-title" tabindex="-1">Recolor your Discord</h1>
+        <p class="lead">Ultracord is a community hub of themes and plugins for Sunbird, the Discord Phoenix unlocker. Pick a theme in one click, add plugins read line by line before they ship, or make your own.</p>
         <p class="actions">
-          <a class="button" href="#install">Install Ultracord</a>
-          <a class="button button-ghost" href="#plugins">Browse plugins</a>
+          <a class="button" href="#themes">Browse themes</a>
+          <a class="button button-ghost" href="#install">Install Ultracord</a>
         </p>
       </div>
+    </section>
+
+    <section id="themes" class="section" aria-labelledby="themes-title">
+      <h2 id="themes-title">Themes</h2>
+      <p>Sunbird recolors all of Discord from a theme's palette: the backgrounds, the text, the accent, the borders, even how round the corners are. Pick one in Ultracord's settings, under Theme. Windows desktop only for now.</p>
+      <p id="themes-status" class="status" role="status">Loading the themes…</p>
+      <ul id="themes-catalog" class="cards theme-cards"></ul>
+      <p class="actions">
+        <a class="button button-ghost" href="https://github.com/acasamit/ultracord/blob/main/themes/README.md">Make your own theme</a>
+      </p>
     </section>
 
     <section id="plugins" class="section" aria-labelledby="plugins-title">
@@ -68,11 +78,6 @@
       </div>
       <p id="catalog-status" class="status" role="status">Loading the catalog…</p>
       <ul id="catalog" class="cards"></ul>
-    </section>
-
-    <section id="themes" class="section" aria-labelledby="themes-title">
-      <h2 id="themes-title">Themes</h2>
-      <p>Phoenix draws Discord natively, without CSS, so themes need support from Sunbird itself. That work is in progress upstream. Theme submissions open as soon as it lands, and existing mobile themes should carry over.</p>
     </section>
 
     <section id="install" class="section" aria-labelledby="install-title">
@@ -94,15 +99,15 @@
           </div>
         </li>
         <li>
-          <h3>Pick your plugins</h3>
-          <p>Open Ultracord from the button in the chat header, or from its settings page on desktop. It shows every plugin, what it can access, and tells you when an update is out.</p>
+          <h3>Pick a theme and your plugins</h3>
+          <p>Open Ultracord's page in Sunbird's settings, or its button in the chat header on mobile. Choose a theme under Theme on desktop, then pick plugins: each one shows what it can access, and Ultracord tells you when an update is out.</p>
         </li>
       </ol>
     </section>
 
     <section id="contribute" class="section" aria-labelledby="contribute-title">
       <h2 id="contribute-title">Contribute</h2>
-      <p>Plugins are TypeScript files submitted as pull requests on GitHub. A submission is refused if it:</p>
+      <p>Themes are <code>.theme.css</code> palettes and plugins are TypeScript files, both submitted as pull requests on GitHub. A theme has to keep its text readable on its backgrounds. A plugin is refused if it:</p>
       <ul class="rules">
         <li>loads or runs code it does not ship with;</li>
         <li>sends your data anywhere its description does not mention;</li>
@@ -110,13 +115,14 @@
         <li>is obfuscated or minified.</li>
       </ul>
       <p class="actions">
-        <a class="button" href="https://github.com/acasamit/ultracord/blob/main/CONTRIBUTING.md">Write a plugin</a>
+        <a class="button" href="https://github.com/acasamit/ultracord/blob/main/themes/README.md">Make a theme</a>
+        <a class="button button-ghost" href="https://github.com/acasamit/ultracord/blob/main/CONTRIBUTING.md">Write a plugin</a>
       </p>
     </section>
 
     <section id="support" class="section" aria-labelledby="support-title">
       <h2 id="support-title">Support</h2>
-      <p>Ultracord is free and made in spare time. If it makes your Discord better, a coffee on Ko-fi helps keep every plugin reviewed and the store running.</p>
+      <p>Ultracord is free and made in spare time. If it makes your Discord better, a coffee on Ko-fi helps keep every theme and plugin reviewed and the store running.</p>
       <p class="actions">
         <a class="button" href="https://ko-fi.com/acasamit">
           <svg class="button-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
