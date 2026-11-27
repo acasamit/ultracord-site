@@ -1560,3 +1560,12 @@ button.button {
   border: 0;
   color-scheme: dark;
 }
+
+/* The other way to use a theme, under the steps. */
+.other-way {
+  margin-block-start: 1.75rem;
+  padding: 1rem 1.25rem;
+  border-inline-start: 3px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--muted);
+}
