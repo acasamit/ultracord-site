@@ -1,6 +1,6 @@
 // Every theme, with a search box and a dark or light filter.
 import './site.js';
-import { fetchThemes, isLight, themeCard } from './theme-kit.js';
+import { downloadCounts, fetchThemes, isLight, showCounts, themeCard } from './theme-kit.js';
 
 const list = document.getElementById('themes-catalog');
 const status = document.getElementById('themes-status');
@@ -34,6 +34,7 @@ async function load() {
       item.dataset.search = `${t.title} ${t.description} ${t.author}`.toLowerCase();
       return item;
     }));
+    downloadCounts().then((counts) => showCounts(list, counts));
     if (!themes.length) {
       status.textContent = 'No themes yet. The first ones are on their way.';
       return;

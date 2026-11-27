@@ -158,10 +158,21 @@ export function credit(t) {
     short ? ` (${short})` : '')];
 }
 
-/** Saves `<name>.theme.css`: the file is on another origin, where `download` alone opens it. */
+// Each theme version is also an asset of the store's `themes` release, where GitHub counts the
+// downloads. The catalog gives its link as `download`.
+const RELEASE = 'https://github.com/acasamit/ultracord/releases/download/themes/';
+const RELEASE_API = 'https://api.github.com/repos/acasamit/ultracord/releases/tags/themes';
+const COUNTS = 'ultracord-downloads';
+
+/**
+ * The theme file. Through the release, GitHub serves it as an attachment and counts it. Without
+ * one, it is fetched and saved as `<name>.theme.css`: on another origin, `download` alone opens it.
+ */
 export function downloadLink(t, className = 'button button-small button-ghost') {
-  const link = element('a', { className, href: t.url },
+  const release = typeof t.download === 'string' && t.download.startsWith(RELEASE) ? t.download : null;
+  const link = element('a', { className, href: release ?? t.url },
     'Download', element('span', { className: 'visually-hidden', textContent: ` ${t.title}` }));
+  if (release) return link;
   link.addEventListener('click', async (event) => {
     event.preventDefault();
     try {
@@ -196,5 +207,46 @@ export function themeCard(t) {
     swatches,
     element('footer', {}, downloadLink(t)));
   article.style.setProperty('--tp-accent', colors['accent-color']);
+  article.dataset.theme = t.name;
   return element('li', {}, article);
+}
+
+/**
+ * Downloads per theme, added up over its versions, or null when GitHub cannot be asked. Kept ten
+ * minutes in the tab: GitHub answers 60 requests an hour from one address.
+ */
+export async function downloadCounts() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(COUNTS) ?? 'null');
+    if (saved && Date.now() - saved.at < 10 * 60 * 1000) return saved.counts;
+  } catch {}
+  try {
+    const res = await fetch(RELEASE_API, { headers: { Accept: 'application/vnd.github+json' } });
+    if (!res.ok) return null;
+    const counts = {};
+    for (const asset of (await res.json()).assets ?? []) {
+      const match = /^([a-z0-9]+(?:-[a-z0-9]+)*)-\d+\.\d+\.\d+\.theme\.css$/.exec(asset.name ?? '');
+      if (match) counts[match[1]] = (counts[match[1]] ?? 0) + (Number(asset.download_count) || 0);
+    }
+    try {
+      sessionStorage.setItem(COUNTS, JSON.stringify({ at: Date.now(), counts }));
+    } catch {}
+    return counts;
+  } catch {
+    return null;
+  }
+}
+
+export const downloads = (n) => `${n.toLocaleString('en')} ${n === 1 ? 'download' : 'downloads'}`;
+
+/** Adds each theme's download count to its card, once it has any. */
+export function showCounts(root, counts) {
+  if (!counts) return;
+  for (const card of root.querySelectorAll('.theme-card[data-theme]')) {
+    const n = counts[card.dataset.theme];
+    const meta = card.querySelector('.meta');
+    if (n && meta && !meta.querySelector('.downloads')) {
+      meta.append(element('li', { className: 'downloads', textContent: downloads(n) }));
+    }
+  }
 }

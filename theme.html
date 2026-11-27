@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0b0d">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://assets.ultracord.dev https://api.github.com; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self' https://giscus.app; frame-src https://giscus.app; base-uri 'none'; form-action 'none'; object-src 'none'">
   <title>Theme: Ultracord</title>
   <meta name="description" content="A Sunbird theme on Ultracord: its preview, its palette and how to use it.">
   <meta property="og:title" content="Ultracord theme">
@@ -65,6 +65,12 @@
         <dl id="theme-palette" class="palette"></dl>
       </div>
     </article>
+
+    <section id="comments" class="section" aria-labelledby="comments-title" hidden>
+      <h2 id="comments-title">Comments</h2>
+      <p>Rate this theme with a reaction, or leave a comment. Both go through GitHub Discussions, so they need a GitHub account.</p>
+      <div id="giscus" class="giscus"></div>
+    </section>
 
     <section id="use" class="section" aria-labelledby="use-title">
       <h2 id="use-title">Use it</h2>

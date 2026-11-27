@@ -1,7 +1,11 @@
 // One theme's page, from `theme.html?name=<name>`: a large sketch, who made it, its palette,
 // and buttons to download it or edit a copy in the theme maker.
 import './site.js';
-import { COLORS, credit, downloadLink, element, fetchThemes, palette, sketch } from './theme-kit.js';
+import { COLORS, credit, downloadCounts, downloadLink, downloads, element, fetchThemes, palette, sketch } from './theme-kit.js';
+
+// Comments and reactions live in the store repository's GitHub Discussions, through giscus. The
+// ids come from giscus.app once Discussions and the giscus app are on for acasamit/ultracord.
+const GISCUS = null;
 
 const status = document.getElementById('theme-status');
 const page = document.getElementById('theme');
@@ -39,6 +43,42 @@ function show(t) {
   page.style.setProperty('--tp-accent', colors['accent-color']);
   page.hidden = false;
   status.hidden = true;
+
+  downloadCounts().then((counts) => {
+    const n = counts?.[t.name];
+    if (n) document.getElementById('theme-meta').append(element('li', { textContent: downloads(n) }));
+  });
+  comments(t);
+}
+
+/** The giscus thread for this theme, loaded once the section comes near so a quick visit never reaches GitHub. */
+function comments(t) {
+  if (!GISCUS) return;
+  const section = document.getElementById('comments');
+  section.hidden = false;
+  const load = () => {
+    const script = element('script', { src: 'https://giscus.app/client.js', async: true, crossOrigin: 'anonymous' });
+    Object.assign(script.dataset, {
+      repo: 'acasamit/ultracord',
+      repoId: GISCUS.repoId,
+      category: GISCUS.category,
+      categoryId: GISCUS.categoryId,
+      mapping: 'specific',
+      term: `theme:${t.name}`,
+      strict: '1',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'top',
+      theme: 'transparent_dark',
+      lang: 'en',
+    });
+    document.getElementById('giscus').append(script);
+  };
+  new IntersectionObserver((entries, observer) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    load();
+  }, { rootMargin: '400px' }).observe(section);
 }
 
 async function load() {
