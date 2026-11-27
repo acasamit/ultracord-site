@@ -1,7 +1,7 @@
 // One theme's page, from `theme.html?name=<name>`: a large sketch, who made it, its palette,
 // and buttons to download it or edit a copy in the theme maker.
 import './site.js';
-import { COLORS, credit, downloadCounts, downloadLink, downloads, element, fetchThemes, palette, sketch } from './theme-kit.js';
+import { COLORS, credit, downloadLink, element, fetchThemes, palette, sketch, statsRow, themeStats } from './theme-kit.js';
 
 // Comments and reactions live in the store repository's GitHub Discussions, through giscus, in
 // the "Theme comments" category (Announcement format: only giscus and maintainers open threads).
@@ -48,9 +48,9 @@ function show(t) {
   page.hidden = false;
   status.hidden = true;
 
-  downloadCounts().then((counts) => {
-    const n = counts?.[t.name];
-    if (n) document.getElementById('theme-meta').append(element('li', { textContent: downloads(n) }));
+  themeStats().then((stats) => {
+    const row = statsRow(stats?.[t.name], true);
+    if (row.children.length) document.getElementById('theme-meta').after(row);
   });
   comments(t);
 }

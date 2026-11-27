@@ -161,8 +161,6 @@ export function credit(t) {
 // Each theme version is also an asset of the store's `themes` release, where GitHub counts the
 // downloads. The catalog gives its link as `download`.
 const RELEASE = 'https://github.com/acasamit/ultracord/releases/download/themes/';
-const RELEASE_API = 'https://api.github.com/repos/acasamit/ultracord/releases/tags/themes';
-const COUNTS = 'ultracord-downloads';
 
 /**
  * The theme file. Through the release, GitHub serves it as an attachment and counts it. Without
@@ -211,42 +209,62 @@ export function themeCard(t) {
   return element('li', {}, article);
 }
 
-/**
- * Downloads per theme, added up over its versions, or null when GitHub cannot be asked. Kept ten
- * minutes in the tab: GitHub answers 60 requests an hour from one address.
- */
-export async function downloadCounts() {
+/* Downloads, comments and reactions, which the store counts every hour and after each comment. */
+
+const STATS = 'https://assets.ultracord.dev/themes/stats.json';
+export const STAT_KEYS = ['downloads', 'comments', 'reactions'];
+const NOUNS = { downloads: 'download', comments: 'comment', reactions: 'reaction' };
+const ICONS = {
+  downloads: 'M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14',
+  comments: 'M4 4.5h16v11H10l-6 4.5z',
+  reactions: 'M12 20 4.9 12.9a4.4 4.4 0 0 1 6.2-6.2l.9.9.9-.9a4.4 4.4 0 0 1 6.2 6.2z',
+};
+
+/** Each theme's counts, `{ name: { downloads, comments, reactions } }`, or null. */
+export async function themeStats() {
   try {
-    const saved = JSON.parse(sessionStorage.getItem(COUNTS) ?? 'null');
-    if (saved && Date.now() - saved.at < 10 * 60 * 1000) return saved.counts;
-  } catch {}
-  try {
-    const res = await fetch(RELEASE_API, { headers: { Accept: 'application/vnd.github+json' } });
+    // A local preview can point at a sample file: ?stats=./sample.json
+    const res = await fetch(source('stats', STATS), { cache: 'no-cache' });
     if (!res.ok) return null;
-    const counts = {};
-    for (const asset of (await res.json()).assets ?? []) {
-      const match = /^([a-z0-9]+(?:-[a-z0-9]+)*)-\d+\.\d+\.\d+\.theme\.css$/.exec(asset.name ?? '');
-      if (match) counts[match[1]] = (counts[match[1]] ?? 0) + (Number(asset.download_count) || 0);
-    }
-    try {
-      sessionStorage.setItem(COUNTS, JSON.stringify({ at: Date.now(), counts }));
-    } catch {}
-    return counts;
+    const body = await res.json();
+    return body && typeof body.themes === 'object' ? body.themes : null;
   } catch {
     return null;
   }
 }
 
-export const downloads = (n) => `${n.toLocaleString('en')} ${n === 1 ? 'download' : 'downloads'}`;
+export const countText = (n, key) => `${n.toLocaleString('en')} ${NOUNS[key]}${n === 1 ? '' : 's'}`;
 
-/** Adds each theme's download count to its card, once it has any. */
-export function showCounts(root, counts) {
-  if (!counts) return;
+function icon(key) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', ICONS[key]);
+  svg.append(path);
+  return svg;
+}
+
+/** The counts a theme has, zeros included, with an icon each. `labels` spells the nouns out. */
+export function statsRow(stats, labels = false) {
+  const row = element('ul', { className: 'stats', ariaLabel: 'Stats' });
+  for (const key of STAT_KEYS) {
+    const n = stats?.[key];
+    if (typeof n !== 'number') continue;
+    const text = countText(n, key);
+    row.append(element('li', { title: text }, icon(key),
+      labels ? text : element('span', {}, n.toLocaleString('en'),
+        element('span', { className: 'visually-hidden', textContent: ` ${NOUNS[key]}${n === 1 ? '' : 's'}` }))));
+  }
+  return row;
+}
+
+/** Adds the counts to every card under `root`. */
+export function showStats(root, all) {
+  if (!all) return;
   for (const card of root.querySelectorAll('.theme-card[data-theme]')) {
-    const n = counts[card.dataset.theme];
-    const meta = card.querySelector('.meta');
-    if (n && meta && !meta.querySelector('.downloads')) {
-      meta.append(element('li', { className: 'downloads', textContent: downloads(n) }));
-    }
+    if (card.querySelector('.stats')) continue;
+    const row = statsRow(all[card.dataset.theme]);
+    if (row.children.length) card.querySelector('.swatches').before(row);
   }
 }
