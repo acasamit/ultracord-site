@@ -571,53 +571,6 @@ main {
   }
 }
 
-/* Install steps */
-
-.steps {
-  display: grid;
-  gap: 1.5rem;
-  margin: 1.5rem 0 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: step;
-
-  /* The number sits on the title's baseline, in a column as wide for every step, so the titles
-     line up whatever the digit. */
-  > li {
-    counter-increment: step;
-    display: grid;
-    grid-template-columns: 2.25rem minmax(0, 1fr);
-    column-gap: 1rem;
-
-    &::before {
-      content: counter(step);
-      grid-row: 1;
-      align-self: baseline;
-      font-family: var(--display);
-      font-size-adjust: cap-height from-font;
-      font-size: 2.75rem;
-      font-style: italic;
-      line-height: 1;
-      text-align: center;
-      color: var(--red);
-      text-shadow: 0.06em 0.06em 0 var(--deep);
-    }
-
-    > * {
-      grid-column: 2;
-    }
-
-    > h3 {
-      grid-row: 1;
-      align-self: baseline;
-    }
-
-    p {
-      color: var(--muted);
-    }
-  }
-}
-
 .rules {
   color: var(--muted);
   max-inline-size: 60ch;
@@ -1561,11 +1514,100 @@ button.button {
   color-scheme: dark;
 }
 
-/* The other way to use a theme, under the steps. */
-.other-way {
-  margin-block-start: 1.75rem;
-  padding: 1rem 1.25rem;
-  border-inline-start: 3px solid var(--line-strong);
+/* How to use a theme: two compact cards side by side, Automatic and Manual. */
+
+.install-intro {
+  margin-block-end: 1.25rem;
+}
+
+.install-ways {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: 1rem;
+}
+
+.way {
+  container-type: inline-size;
+  display: grid;
+  align-content: start;
+  gap: 0.625rem;
+  padding: 1.125rem 1.25rem 1.25rem;
   background: var(--panel);
-  color: var(--muted);
+  border: 1px solid var(--line);
+  border-block-start: 3px solid var(--line-strong);
+  font-size: 0.9375rem;
+
+  &:first-child {
+    border-block-start-color: var(--red);
+  }
+
+  h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: 0;
+    font-size: 1.375rem;
+  }
+
+  > p {
+    margin: 0;
+    color: var(--muted);
+  }
+}
+
+.way-tag {
+  padding: 0.125rem 0.5rem;
+  background: var(--red-button);
+  color: var(--bone);
+  font-family: var(--body);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: none;
+}
+
+.way-steps {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: way;
+
+  > li {
+    counter-increment: way;
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    column-gap: 0.5rem;
+
+    &::before {
+      content: counter(way);
+      grid-row: span 2;
+      font-family: var(--display);
+      font-size-adjust: cap-height from-font;
+      font-size: 1.125rem;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--red);
+    }
+  }
+
+  .copy-row {
+    margin-block-start: 0.5rem;
+    gap: 0.5rem;
+
+    code {
+      flex: 1 1 14rem;
+      padding: 0.375rem 0.625rem;
+      background: var(--ink);
+      font-size: 0.8125rem;
+    }
+  }
+
+  .copy-button {
+    min-block-size: 2.25rem;
+    padding: 0.25rem 0.875rem;
+  }
 }

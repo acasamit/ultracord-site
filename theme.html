@@ -81,28 +81,35 @@
         <div class="theme-rest">
           <section class="theme-block" aria-labelledby="use-title">
             <h2 id="use-title">Use it</h2>
-            <ol class="steps">
-              <li>
-                <h3>Patch Discord Phoenix with Sunbird</h3>
-                <p>Get Discord Phoenix for Windows and Sunbird from <a href="https://sunbird.tools/">sunbird.tools</a>. Desktop themes need Sunbird 0.1.1 or newer, and its launcher updates itself every time it starts.</p>
-              </li>
-              <li>
-                <h3>Add Ultracord Themes</h3>
-                <p>In Discord's settings, open Sunbird, choose + URL and paste this link. The plugin only reaches assets.ultracord.dev.</p>
-                <div class="copy-row">
-                  <code id="plugin-url">https://assets.ultracord.dev/plugins/ultracord-themes.js</code>
-                  <span class="copy">
-                    <button class="copy-button" type="button" command="--copy" commandfor="plugin-url">Copy link<span class="visually-hidden"> to the Ultracord Themes plugin</span></button>
-                    <span class="tip" role="status"></span>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <h3>Pick a theme</h3>
-                <p>In the plugin's settings, choose this theme under Theme. It applies at once, comes back when Discord starts and updates itself when the theme does.</p>
-              </li>
-            </ol>
-            <p class="other-way">Rather use Sunbird's own desktop-themes plugin? Install it from Sunbird's plugin catalog (under Unverified for now), press Download above, put the file in its themes folder with Open themes folder, reload the plugins and pick the theme under Theme.</p>
+            <p class="install-intro">Themes need Discord Phoenix for Windows with Sunbird 0.1.1 or newer, both from <a href="https://sunbird.tools/">sunbird.tools</a>. Then pick a way:</p>
+            <div class="install-ways">
+              <article class="way">
+                <h3>Automatic <span class="way-tag">Recommended</span></h3>
+                <p>The Ultracord Themes plugin lists every theme in Discord's settings and keeps yours up to date.</p>
+                <ol class="way-steps">
+                  <li>In Discord's settings, open Sunbird, choose + URL and paste this link:
+                    <span class="copy-row">
+                      <code id="plugin-url">https://assets.ultracord.dev/plugins/ultracord-themes.js</code>
+                      <span class="copy">
+                        <button class="copy-button" type="button" command="--copy" commandfor="plugin-url">Copy<span class="visually-hidden"> the link to the Ultracord Themes plugin</span></button>
+                        <span class="tip" role="status"></span>
+                      </span>
+                    </span>
+                  </li>
+                  <li>In the plugin's settings, pick this theme under Theme.</li>
+                </ol>
+              </article>
+              <article class="way">
+                <h3>Manual</h3>
+                <p>Sunbird's own desktop-themes plugin applies a theme file you download.</p>
+                <ol class="way-steps">
+                  <li>Install desktop-themes from Sunbird's plugin catalog, under Unverified for now.</li>
+                  <li>Press Download above.</li>
+                  <li>In desktop-themes, press Open themes folder and put the file there.</li>
+                  <li>Reload the plugins and pick the theme under Theme.</li>
+                </ol>
+              </article>
+            </div>
           </section>
 
           <section id="comments" class="theme-block" aria-labelledby="comments-title" hidden>
