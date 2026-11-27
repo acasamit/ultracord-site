@@ -276,11 +276,22 @@ function themeCard(t) {
     element('p', { textContent: t.description }),
     element('ul', { className: 'meta' },
       element('li', { textContent: `v${t.version}` }),
-      element('li', { textContent: `by ${t.author}` })),
+      element('li', { textContent: `by ${t.author}` }),
+      ...credit(t)),
     swatches,
     element('footer', {}, downloadLink(t)));
   article.style.setProperty('--tp-accent', colors['accent-color']);
   return element('li', {}, article);
+}
+
+/** For a port of someone else's palette: a link to the original and its license. */
+function credit(t) {
+  if (typeof t.source !== 'string' || !t.source.startsWith('https://')) return [];
+  const license = typeof t.license === 'string' ? t.license : '';
+  const short = license.split(',')[0].trim();
+  return [element('li', { title: license },
+    element('a', { href: t.source, rel: 'noopener', textContent: 'Original palette' }),
+    short ? ` (${short})` : '')];
 }
 
 /** Saves `<name>.theme.css`: the file is on another origin, where `download` alone opens it. */
@@ -309,9 +320,10 @@ async function loadThemes() {
   try {
     const res = await fetch(source, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    // Ultracord's own theme first, then by name.
+    // Ultracord's own theme first, then the other house themes, then the ports, each by name.
+    const rank = (t) => (t.name === 'ultracord' ? 0 : t.source ? 2 : 1);
     const themes = (await res.json()).filter(isTheme).sort((a, b) =>
-      Number(b.name === 'ultracord') - Number(a.name === 'ultracord') || a.title.localeCompare(b.title));
+      rank(a) - rank(b) || a.title.localeCompare(b.title));
     themeList.replaceChildren(...themes.map(themeCard));
     themeStatus.textContent = themes.length
       ? `${themes.length} ${themes.length === 1 ? 'theme' : 'themes'}.`
