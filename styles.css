@@ -756,10 +756,12 @@ main {
   gap: 2.4cqi;
 }
 
+/* Its own height, not stretched to the lines beside it, so it stays round. */
 .tp-avatar {
   flex: none;
+  align-self: start;
   inline-size: 7cqi;
-  aspect-ratio: 1;
+  block-size: 7cqi;
   border-radius: 50%;
   background: var(--tp-elevated);
 
